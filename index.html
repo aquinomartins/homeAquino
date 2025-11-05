@@ -12,15 +12,22 @@
     />
     <style>
       :root {
-        --bg: #04111d;
-        --bg-alt: #0c1626;
-        --card-bg: rgba(12, 22, 38, 0.6);
-        --primary: #1ea7ff;
-        --primary-light: rgba(30, 167, 255, 0.16);
-        --accent: linear-gradient(135deg, #1ea7ff, #1abc9c 55%, #f0c808);
-        --text: #f0f6ff;
-        --text-muted: #94a3b8;
-        --border: rgba(148, 163, 184, 0.15);
+        --bg: #0e1c18;
+        --bg-alt: #132823;
+        --card-bg: rgba(20, 44, 37, 0.68);
+        --primary: #7da7c1;
+        --primary-light: rgba(125, 167, 193, 0.18);
+        --secondary: #2f7d62;
+        --secondary-light: rgba(47, 125, 98, 0.2);
+        --tertiary: #8c4b2b;
+        --tertiary-light: rgba(140, 75, 43, 0.24);
+        --accent: linear-gradient(135deg, #7da7c1, #2f7d62 58%, #8c4b2b);
+        --glow-blue: rgba(125, 167, 193, 0.45);
+        --glow-green: rgba(47, 125, 98, 0.45);
+        --glow-brown: rgba(140, 75, 43, 0.4);
+        --text: #f2f6f7;
+        --text-muted: #99afb1;
+        --border: rgba(114, 145, 139, 0.22);
         font-size: 16px;
       }
 
@@ -32,7 +39,8 @@
 
       body {
         font-family: "Inter", sans-serif;
-        background: radial-gradient(circle at top, rgba(32, 129, 226, 0.12), var(--bg));
+        background: radial-gradient(circle at top, rgba(125, 167, 193, 0.16), rgba(14, 28, 24, 0.95)),
+          linear-gradient(180deg, rgba(14, 28, 24, 1), rgba(14, 28, 24, 0.85) 35%, rgba(12, 24, 20, 1));
         color: var(--text);
         min-height: 100vh;
         position: relative;
@@ -65,15 +73,16 @@
         height: 520px;
         top: -220px;
         right: -160px;
-        background: radial-gradient(circle, rgba(30, 167, 255, 0.35), transparent 70%);
+        background: radial-gradient(circle, var(--glow-blue), transparent 72%);
       }
 
       body::after {
-        width: 420px;
-        height: 420px;
-        bottom: -180px;
+        width: 480px;
+        height: 480px;
+        bottom: -220px;
         left: -140px;
-        background: radial-gradient(circle, rgba(26, 188, 156, 0.4), transparent 65%);
+        background: radial-gradient(circle, var(--glow-green), transparent 68%),
+          radial-gradient(circle at 65% 35%, var(--glow-brown), transparent 70%);
       }
 
       a {
@@ -85,9 +94,10 @@
         position: sticky;
         top: 0;
         z-index: 1000;
-        backdrop-filter: blur(16px);
-        background: rgba(4, 17, 29, 0.7);
-        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(18px);
+        background: rgba(12, 31, 26, 0.76);
+        border-bottom: 1px solid rgba(125, 167, 193, 0.15);
+        box-shadow: 0 20px 40px rgba(5, 12, 10, 0.55);
       }
 
       .nav-container {
@@ -117,6 +127,7 @@
         align-items: center;
         justify-content: center;
         font-size: 1.35rem;
+        box-shadow: 0 10px 24px rgba(125, 167, 193, 0.25), 0 0 0 1px rgba(47, 125, 98, 0.45);
       }
 
       nav {
@@ -127,6 +138,15 @@
         font-size: 0.95rem;
       }
 
+      nav a {
+        color: rgba(234, 241, 243, 0.76);
+        transition: color 0.2s ease;
+      }
+
+      nav a:hover {
+        color: #eaf1f3;
+      }
+
       .search {
         flex: 1;
         max-width: 320px;
@@ -135,15 +155,16 @@
 
       .search input {
         width: 100%;
-        background: var(--bg-alt);
-        border: 1px solid var(--border);
+        background: rgba(15, 36, 30, 0.85);
+        border: 1px solid rgba(125, 167, 193, 0.2);
         border-radius: 14px;
         padding: 0.75rem 2.5rem 0.75rem 1rem;
         color: var(--text);
+        box-shadow: inset 0 0 0 1px rgba(47, 125, 98, 0.08);
       }
 
       .search input::placeholder {
-        color: var(--text-muted);
+        color: rgba(153, 175, 177, 0.7);
       }
 
       .search span {
@@ -163,11 +184,12 @@
       .art-strip {
         position: relative;
         overflow: hidden;
-        border-top: 1px solid rgba(148, 163, 184, 0.12);
-        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-        background: linear-gradient(180deg, rgba(4, 17, 29, 0.85), rgba(12, 22, 38, 0.78));
+        border-top: 1px solid rgba(125, 167, 193, 0.12);
+        border-bottom: 1px solid rgba(125, 167, 193, 0.12);
+        background: linear-gradient(180deg, rgba(16, 38, 32, 0.9), rgba(14, 32, 26, 0.78));
         padding: 1.5rem 0;
         isolation: isolate;
+        box-shadow: inset 0 1px 0 rgba(47, 125, 98, 0.2), inset 0 -1px 0 rgba(140, 75, 43, 0.2);
       }
 
       .art-strip::before,
@@ -183,12 +205,12 @@
 
       .art-strip::before {
         left: 0;
-        background: linear-gradient(90deg, var(--bg) 0%, rgba(4, 17, 29, 0));
+        background: linear-gradient(90deg, rgba(14, 28, 24, 1) 0%, rgba(14, 28, 24, 0));
       }
 
       .art-strip::after {
         right: 0;
-        background: linear-gradient(270deg, var(--bg) 0%, rgba(4, 17, 29, 0));
+        background: linear-gradient(270deg, rgba(14, 28, 24, 1) 0%, rgba(14, 28, 24, 0));
       }
 
       .art-strip-container {
@@ -237,15 +259,16 @@
         width: 210px;
         border-radius: 18px;
         overflow: hidden;
-        border: 1px solid rgba(148, 163, 184, 0.18);
-        background: rgba(12, 22, 38, 0.85);
-        box-shadow: 0 18px 36px rgba(2, 8, 20, 0.4);
-        transition: transform 0.3s ease, border-color 0.3s ease;
+        border: 1px solid rgba(125, 167, 193, 0.16);
+        background: linear-gradient(160deg, rgba(20, 44, 37, 0.92), rgba(14, 30, 26, 0.88));
+        box-shadow: 0 18px 36px rgba(4, 10, 9, 0.55);
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       }
 
       .art-card:hover {
         transform: translateY(-6px);
-        border-color: rgba(32, 129, 226, 0.4);
+        border-color: rgba(125, 167, 193, 0.55);
+        box-shadow: 0 22px 44px rgba(6, 15, 12, 0.65);
       }
 
       .art-card img {
@@ -286,23 +309,53 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+        overflow: hidden;
+        border: none;
+        letter-spacing: 0.01em;
+        isolation: isolate;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+        opacity: 0;
+        transform: translateY(60%);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+        z-index: -1;
       }
 
       .btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 12px 32px rgba(32, 129, 226, 0.18);
+        box-shadow: 0 14px 32px rgba(8, 18, 15, 0.45);
+      }
+
+      .btn:hover::before {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       .btn-primary {
-        background: var(--primary);
-        color: #fff;
-        box-shadow: 0 18px 42px rgba(30, 167, 255, 0.2);
+        background: linear-gradient(135deg, rgba(125, 167, 193, 0.95), rgba(47, 125, 98, 0.95));
+        color: #f6f9fb;
+        box-shadow: 0 18px 42px rgba(125, 167, 193, 0.28), 0 10px 24px rgba(47, 125, 98, 0.32);
+        border: 1px solid rgba(125, 167, 193, 0.3);
       }
 
       .btn-outline {
-        border: 1px solid var(--border);
+        border: 1px solid rgba(125, 167, 193, 0.3);
         color: var(--text);
-        background: transparent;
+        background: rgba(14, 32, 26, 0.6);
+        box-shadow: inset 0 0 0 1px rgba(47, 125, 98, 0.22);
+      }
+
+      .btn-outline:hover {
+        color: #eaf1f3;
+        background: linear-gradient(135deg, rgba(14, 32, 26, 0.85), rgba(20, 44, 37, 0.7));
       }
 
       .hero {
@@ -321,10 +374,11 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 25% 10%, rgba(30, 167, 255, 0.25), transparent 60%),
-          radial-gradient(circle at 80% 90%, rgba(26, 188, 156, 0.2), transparent 65%);
-        filter: blur(30px);
-        opacity: 0.65;
+        background: radial-gradient(circle at 25% 10%, rgba(125, 167, 193, 0.28), transparent 60%),
+          radial-gradient(circle at 80% 90%, rgba(47, 125, 98, 0.24), transparent 65%),
+          radial-gradient(circle at 40% 80%, rgba(140, 75, 43, 0.18), transparent 60%);
+        filter: blur(34px);
+        opacity: 0.7;
         z-index: -1;
       }
 
@@ -339,12 +393,13 @@
         content: "";
         position: absolute;
         inset: -20%;
-        background: radial-gradient(circle at 50% 0%, rgba(30, 167, 255, 0.18), transparent 60%),
-          linear-gradient(140deg, rgba(12, 22, 38, 0.9), rgba(30, 167, 255, 0.08));
+        background: radial-gradient(circle at 55% 0%, rgba(125, 167, 193, 0.22), transparent 60%),
+          radial-gradient(circle at 35% 85%, rgba(47, 125, 98, 0.22), transparent 65%),
+          linear-gradient(140deg, rgba(16, 36, 32, 0.92), rgba(125, 167, 193, 0.08));
         border-radius: 40%;
         filter: blur(60px);
         z-index: -1;
-        opacity: 0.55;
+        opacity: 0.6;
         animation: pulse 8s ease-in-out infinite alternate;
       }
 
@@ -352,11 +407,11 @@
         width: 100%;
         max-width: 420px;
         border-radius: 32px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(12, 22, 38, 0.55);
+        border: 1px solid rgba(125, 167, 193, 0.2);
+        background: linear-gradient(160deg, rgba(18, 42, 35, 0.8), rgba(13, 28, 24, 0.6));
         padding: 1.5rem;
-        backdrop-filter: blur(12px);
-        box-shadow: 0 30px 60px rgba(2, 8, 20, 0.45);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 30px 60px rgba(5, 12, 10, 0.55);
       }
 
       .hero-illustration svg {
@@ -385,13 +440,13 @@
       }
 
       .hero-card {
-        background: linear-gradient(160deg, rgba(32, 129, 226, 0.22), rgba(12, 22, 38, 0.85));
+        background: linear-gradient(160deg, rgba(125, 167, 193, 0.22), rgba(20, 44, 37, 0.9));
         border-radius: 24px;
         padding: 2rem;
-        border: 1px solid rgba(32, 129, 226, 0.28);
+        border: 1px solid rgba(125, 167, 193, 0.25);
         position: relative;
         overflow: hidden;
-        box-shadow: 0 25px 50px rgba(15, 23, 42, 0.35);
+        box-shadow: 0 25px 50px rgba(6, 15, 12, 0.45);
         width: 100%;
         max-width: 400px;
       }
@@ -400,7 +455,8 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%);
+        background: radial-gradient(circle at 30% 30%, rgba(125, 167, 193, 0.18), transparent 55%),
+          radial-gradient(circle at 70% 80%, rgba(140, 75, 43, 0.18), transparent 65%);
         pointer-events: none;
       }
 
@@ -409,7 +465,7 @@
         border-radius: 18px;
         margin-bottom: 1.5rem;
         object-fit: cover;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(125, 167, 193, 0.25);
       }
 
       .hero-card h3 {
@@ -423,7 +479,7 @@
         justify-content: space-between;
         margin-top: 1rem;
         padding-top: 1rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(125, 167, 193, 0.2);
         gap: 1rem;
       }
 
@@ -440,9 +496,10 @@
         width: 44px;
         height: 44px;
         border-radius: 50%;
-        background: linear-gradient(160deg, rgba(30, 167, 255, 0.35), rgba(26, 188, 156, 0.25));
-        box-shadow: 0 12px 25px rgba(30, 167, 255, 0.25);
+        background: linear-gradient(160deg, rgba(125, 167, 193, 0.3), rgba(47, 125, 98, 0.35));
+        box-shadow: 0 12px 25px rgba(125, 167, 193, 0.25);
         font-size: 1.25rem;
+        border: 1px solid rgba(125, 167, 193, 0.28);
       }
 
       .hero-avatar strong {
@@ -477,8 +534,10 @@
         display: inline-block;
         padding: 0.45rem 0.95rem;
         border-radius: 999px;
-        background: rgba(30, 167, 255, 0.18);
-        color: var(--primary);
+        background: linear-gradient(135deg, var(--primary-light), rgba(47, 125, 98, 0.32));
+        color: #eaf1f3;
+        border: 1px solid rgba(125, 167, 193, 0.28);
+        box-shadow: 0 14px 26px rgba(8, 16, 14, 0.45);
         font-weight: 600;
         font-size: 0.85rem;
         margin-bottom: 1rem;
@@ -506,6 +565,21 @@
       .section-header a {
         color: var(--primary);
         font-weight: 600;
+        position: relative;
+        padding-right: 1.5rem;
+      }
+
+      .section-header a::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(125, 167, 193, 0.9), rgba(47, 125, 98, 0.9));
+        box-shadow: 0 0 0 2px rgba(14, 32, 26, 0.65);
+        transform: translateY(-50%);
       }
 
       .grid {
@@ -515,25 +589,28 @@
       }
 
       .collection-card {
-        background: var(--card-bg);
+        background: linear-gradient(160deg, rgba(20, 44, 37, 0.86), rgba(14, 30, 26, 0.78));
         border-radius: 20px;
         padding: 1.25rem;
-        border: 1px solid var(--border);
-        transition: transform 0.2s ease, border-color 0.2s ease;
+        border: 1px solid rgba(125, 167, 193, 0.18);
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 16px 36px rgba(5, 12, 10, 0.45);
       }
 
       .collection-card:hover {
         transform: translateY(-6px);
-        border-color: rgba(32, 129, 226, 0.45);
+        border-color: rgba(125, 167, 193, 0.45);
+        box-shadow: 0 22px 44px rgba(6, 15, 12, 0.6);
       }
 
       .collection-card::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(160deg, rgba(30, 167, 255, 0.08), transparent 75%);
+        background: linear-gradient(160deg, var(--primary-light), transparent 75%),
+          radial-gradient(circle at 80% 20%, var(--tertiary-light), transparent 60%);
         opacity: 0;
         transition: opacity 0.2s ease;
         pointer-events: none;
@@ -568,14 +645,15 @@
 
       .stat-card {
         flex: 1 1 200px;
-        background: var(--card-bg);
-        border: 1px solid var(--border);
+        background: linear-gradient(160deg, rgba(18, 42, 35, 0.82), rgba(13, 28, 24, 0.7));
+        border: 1px solid rgba(125, 167, 193, 0.22);
         border-radius: 18px;
         padding: 1.5rem;
         position: relative;
         overflow: hidden;
         display: grid;
         gap: 0.35rem;
+        box-shadow: 0 18px 42px rgba(6, 15, 12, 0.45);
       }
 
       .stat-card h4 {
@@ -592,7 +670,8 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(140deg, rgba(32, 129, 226, 0.08), transparent 70%);
+        background: linear-gradient(140deg, var(--primary-light), transparent 70%),
+          radial-gradient(circle at 20% 80%, var(--secondary-light), transparent 60%);
         pointer-events: none;
         z-index: 0;
       }
@@ -605,7 +684,8 @@
         width: 120px;
         height: 120px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(30, 167, 255, 0.18), transparent 70%);
+        background: radial-gradient(circle, var(--primary-light), transparent 70%),
+          radial-gradient(circle at 40% 60%, var(--tertiary-light), transparent 70%);
         pointer-events: none;
         transform: rotate(12deg);
         z-index: 0;
@@ -620,12 +700,13 @@
         width: 42px;
         height: 42px;
         border-radius: 14px;
-        background: rgba(30, 167, 255, 0.12);
+        background: linear-gradient(135deg, var(--primary-light), rgba(47, 125, 98, 0.28));
         display: inline-flex;
         align-items: center;
         justify-content: center;
         margin-bottom: 0.75rem;
-        box-shadow: 0 10px 22px rgba(30, 167, 255, 0.18);
+        box-shadow: 0 10px 22px rgba(8, 16, 14, 0.45);
+        border: 1px solid rgba(125, 167, 193, 0.2);
       }
 
       .stat-icon svg {
@@ -648,24 +729,26 @@
         align-items: center;
         padding: 2.5rem;
         border-radius: 28px;
-        border: 1px solid rgba(32, 129, 226, 0.25);
-        background: linear-gradient(160deg, rgba(12, 22, 38, 0.9), rgba(12, 22, 38, 0.55));
+        border: 1px solid rgba(125, 167, 193, 0.25);
+        background: linear-gradient(160deg, rgba(20, 44, 37, 0.92), rgba(14, 32, 26, 0.6));
         position: relative;
         overflow: hidden;
+        box-shadow: 0 30px 55px rgba(6, 15, 12, 0.48);
       }
 
       .narrative-highlight::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 20% 20%, rgba(30, 167, 255, 0.22), transparent 60%);
+        background: radial-gradient(circle at 20% 20%, var(--glow-blue), transparent 60%),
+          radial-gradient(circle at 80% 80%, var(--tertiary-light), transparent 70%);
         pointer-events: none;
       }
 
       .narrative-highlight img {
         width: 100%;
         border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(125, 167, 193, 0.22);
       }
 
       .narrative-highlight h3 {
@@ -687,18 +770,20 @@
 
       .story-card {
         border-radius: 20px;
-        border: 1px solid var(--border);
+        border: 1px solid rgba(125, 167, 193, 0.2);
         padding: 1.5rem;
-        background: rgba(12, 22, 38, 0.75);
+        background: linear-gradient(160deg, rgba(18, 42, 35, 0.78), rgba(13, 28, 24, 0.68));
         position: relative;
         overflow: hidden;
+        box-shadow: 0 18px 38px rgba(6, 15, 12, 0.45);
       }
 
       .story-card::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(150deg, rgba(26, 188, 156, 0.08), transparent 70%);
+        background: linear-gradient(150deg, rgba(47, 125, 98, 0.12), transparent 70%),
+          radial-gradient(circle at 70% 30%, rgba(140, 75, 43, 0.18), transparent 70%);
         pointer-events: none;
       }
 
@@ -722,9 +807,11 @@
       }
 
       footer {
-        border-top: 1px solid var(--border);
-        background: rgba(4, 17, 29, 0.8);
+        border-top: 1px solid rgba(125, 167, 193, 0.18);
+        background: radial-gradient(circle at 20% 0%, rgba(125, 167, 193, 0.12), transparent 65%),
+          linear-gradient(180deg, rgba(12, 31, 26, 0.85), rgba(10, 24, 20, 0.9));
         padding: 2.5rem 2rem;
+        box-shadow: 0 -10px 40px rgba(5, 12, 10, 0.65);
       }
 
       .footer-content {
@@ -754,9 +841,10 @@
       .newsletter input {
         padding: 0.75rem 1rem;
         border-radius: 12px;
-        border: 1px solid var(--border);
-        background: var(--bg-alt);
+        border: 1px solid rgba(125, 167, 193, 0.22);
+        background: rgba(15, 36, 30, 0.85);
         color: var(--text);
+        box-shadow: inset 0 0 0 1px rgba(47, 125, 98, 0.12);
       }
 
       .payments {
@@ -768,11 +856,12 @@
 
       .payment-card {
         border-radius: 16px;
-        border: 1px solid var(--border);
-        background: rgba(12, 22, 38, 0.7);
+        border: 1px solid rgba(125, 167, 193, 0.2);
+        background: linear-gradient(160deg, rgba(18, 42, 35, 0.78), rgba(14, 32, 26, 0.62));
         padding: 1.5rem;
         display: grid;
         gap: 0.75rem;
+        box-shadow: 0 16px 32px rgba(6, 15, 12, 0.45);
       }
 
       .payment-card span {
@@ -793,14 +882,14 @@
         position: absolute;
         right: -20px;
         top: 20%;
-        background: rgba(4, 17, 29, 0.8);
-        border: 1px solid rgba(30, 167, 255, 0.28);
+        background: rgba(14, 32, 26, 0.88);
+        border: 1px solid rgba(125, 167, 193, 0.3);
         border-radius: 999px;
         padding: 0.75rem 1.5rem;
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.45);
+        box-shadow: 0 20px 45px rgba(6, 15, 12, 0.55);
         animation: float 7s ease-in-out infinite;
         z-index: 2;
       }
@@ -812,8 +901,8 @@
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        background: rgba(30, 167, 255, 0.16);
-        box-shadow: inset 0 0 0 1px rgba(30, 167, 255, 0.25);
+        background: linear-gradient(135deg, rgba(125, 167, 193, 0.2), rgba(47, 125, 98, 0.28));
+        box-shadow: inset 0 0 0 1px rgba(125, 167, 193, 0.25);
         font-size: 1.1rem;
       }
 
@@ -835,9 +924,9 @@
         bottom: 12%;
         padding: 1rem 1.5rem;
         border-radius: 18px;
-        background: rgba(4, 17, 29, 0.78);
-        border: 1px solid rgba(148, 163, 184, 0.18);
-        box-shadow: 0 18px 36px rgba(2, 8, 20, 0.6);
+        background: rgba(14, 32, 26, 0.82);
+        border: 1px solid rgba(125, 167, 193, 0.22);
+        box-shadow: 0 18px 36px rgba(6, 15, 12, 0.55);
         max-width: 200px;
         font-size: 0.85rem;
         line-height: 1.5;
@@ -852,7 +941,7 @@
         inset: -1px;
         border-radius: inherit;
         padding: 1px;
-        background: linear-gradient(130deg, rgba(30, 167, 255, 0.35), rgba(26, 188, 156, 0.25));
+        background: linear-gradient(130deg, rgba(125, 167, 193, 0.32), rgba(47, 125, 98, 0.28), rgba(140, 75, 43, 0.2));
         -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
@@ -1305,13 +1394,13 @@
             <svg viewBox="0 0 360 320" role="img">
               <defs>
                 <linearGradient id="orbGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#1ea7ff" stop-opacity="0.9" />
-                  <stop offset="60%" stop-color="#1abc9c" stop-opacity="0.6" />
-                  <stop offset="100%" stop-color="#f0c808" stop-opacity="0.6" />
+                  <stop offset="0%" stop-color="#7da7c1" stop-opacity="0.95" />
+                  <stop offset="55%" stop-color="#2f7d62" stop-opacity="0.7" />
+                  <stop offset="100%" stop-color="#8c4b2b" stop-opacity="0.65" />
                 </linearGradient>
                 <radialGradient id="softGlow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#1ea7ff" stop-opacity="0.65" />
-                  <stop offset="100%" stop-color="#1ea7ff" stop-opacity="0" />
+                  <stop offset="0%" stop-color="#7da7c1" stop-opacity="0.65" />
+                  <stop offset="100%" stop-color="#7da7c1" stop-opacity="0" />
                 </radialGradient>
               </defs>
               <circle cx="190" cy="140" r="120" fill="url(#softGlow)" opacity="0.65"></circle>
@@ -1324,21 +1413,21 @@
               ></path>
               <path
                 d="M40 260 C110 210, 220 230, 300 180"
-                stroke="rgba(30, 167, 255, 0.4)"
+                stroke="rgba(125, 167, 193, 0.45)"
                 stroke-width="3"
                 fill="none"
               ></path>
               <circle cx="120" cy="90" r="22" fill="url(#orbGradient)" opacity="0.75"></circle>
-              <circle cx="260" cy="210" r="16" fill="rgba(30, 167, 255, 0.55)"></circle>
-              <circle cx="310" cy="120" r="10" fill="rgba(240, 200, 8, 0.6)"></circle>
+              <circle cx="260" cy="210" r="16" fill="rgba(125, 167, 193, 0.6)"></circle>
+              <circle cx="310" cy="120" r="10" fill="rgba(140, 75, 43, 0.55)"></circle>
               <rect
                 x="90"
                 y="150"
                 width="180"
                 height="110"
                 rx="28"
-                fill="rgba(4, 17, 29, 0.85)"
-                stroke="rgba(30, 167, 255, 0.2)"
+                fill="rgba(14, 32, 26, 0.85)"
+                stroke="rgba(125, 167, 193, 0.24)"
               ></rect>
               <polyline
                 points="120,200 160,180 200,210 240,170"
@@ -1348,10 +1437,10 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               ></polyline>
-              <circle cx="120" cy="200" r="6" fill="rgba(26, 188, 156, 0.9)"></circle>
-              <circle cx="160" cy="180" r="6" fill="rgba(30, 167, 255, 0.85)"></circle>
-              <circle cx="200" cy="210" r="6" fill="rgba(30, 167, 255, 0.6)"></circle>
-              <circle cx="240" cy="170" r="6" fill="rgba(240, 200, 8, 0.8)"></circle>
+              <circle cx="120" cy="200" r="6" fill="rgba(47, 125, 98, 0.85)"></circle>
+              <circle cx="160" cy="180" r="6" fill="rgba(125, 167, 193, 0.85)"></circle>
+              <circle cx="200" cy="210" r="6" fill="rgba(125, 167, 193, 0.6)"></circle>
+              <circle cx="240" cy="170" r="6" fill="rgba(140, 75, 43, 0.75)"></circle>
             </svg>
           </div>
           <div class="hero-card">
@@ -1626,6 +1715,40 @@
       if (canvas && canvas.getContext) {
         const ctx = canvas.getContext("2d");
         const orbs = [];
+        const orbPalettes = [
+          {
+            stops: [
+              { offset: 0, rgb: [125, 167, 193], alpha: 0.75 },
+              { offset: 0.5, rgb: [125, 167, 193], alpha: 0.18 },
+              { offset: 1, rgb: [125, 167, 193], alpha: 0 },
+            ],
+            glow: "rgba(125, 167, 193, 0.35)",
+          },
+          {
+            stops: [
+              { offset: 0, rgb: [47, 125, 98], alpha: 0.7 },
+              { offset: 0.55, rgb: [47, 125, 98], alpha: 0.22 },
+              { offset: 1, rgb: [47, 125, 98], alpha: 0 },
+            ],
+            glow: "rgba(47, 125, 98, 0.4)",
+          },
+          {
+            stops: [
+              { offset: 0, rgb: [140, 75, 43], alpha: 0.6 },
+              { offset: 0.45, rgb: [140, 75, 43], alpha: 0.18 },
+              { offset: 1, rgb: [140, 75, 43], alpha: 0 },
+            ],
+            glow: "rgba(140, 75, 43, 0.35)",
+          },
+          {
+            stops: [
+              { offset: 0, rgb: [255, 255, 255], alpha: 0.38 },
+              { offset: 0.5, rgb: [125, 167, 193], alpha: 0.15 },
+              { offset: 1, rgb: [125, 167, 193], alpha: 0 },
+            ],
+            glow: "rgba(255, 255, 255, 0.25)",
+          },
+        ];
         let width = window.innerWidth;
         let height = window.innerHeight;
         let animationFrame;
@@ -1648,16 +1771,17 @@
           const count = Math.min(32, Math.floor((width * height) / 32000));
           for (let i = 0; i < count; i += 1) {
             const radius = 80 + Math.random() * 120;
+            const palette = orbPalettes[Math.floor(Math.random() * orbPalettes.length)];
             orbs.push({
               x: Math.random() * width,
               y: Math.random() * height,
               radius,
-              hue: 190 + Math.random() * 80,
-              alpha: 0.25 + Math.random() * 0.4,
-              driftX: (Math.random() * 0.4 + 0.1) * (Math.random() > 0.5 ? 1 : -1),
-              driftY: Math.random() * 0.35 + 0.08,
+              palette,
+              alpha: 0.4 + Math.random() * 0.35,
+              driftX: (Math.random() * 0.35 + 0.12) * (Math.random() > 0.5 ? 1 : -1),
+              driftY: Math.random() * 0.3 + 0.1,
               offset: Math.random() * Math.PI * 2,
-              speed: 0.004 + Math.random() * 0.004,
+              speed: 0.003 + Math.random() * 0.0045,
             });
           }
         };
@@ -1687,6 +1811,14 @@
             if (orb.y < -orb.radius) orb.y = height + orb.radius;
             if (orb.y > height + orb.radius) orb.y = -orb.radius;
 
+            let alphaBoost = 0;
+            if (pointer.active) {
+              const pointerDistance = Math.hypot(pointer.x - orb.x, pointer.y - orb.y);
+              if (pointerDistance < 260) {
+                alphaBoost = (260 - pointerDistance) / 260 * 0.25;
+              }
+            }
+
             const gradient = ctx.createRadialGradient(
               orb.x,
               orb.y,
@@ -1695,13 +1827,20 @@
               orb.y,
               orb.radius
             );
-            gradient.addColorStop(0, `hsla(${orb.hue}, 95%, 60%, ${orb.alpha})`);
-            gradient.addColorStop(1, `hsla(${orb.hue + 18}, 85%, 45%, 0)`);
+            const intensity = Math.min(1, orb.alpha + alphaBoost);
+            orb.palette.stops.forEach(({ offset, rgb, alpha }) => {
+              const appliedAlpha = Math.min(1, alpha * intensity);
+              gradient.addColorStop(offset, `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${appliedAlpha})`);
+            });
 
+            ctx.save();
             ctx.beginPath();
             ctx.fillStyle = gradient;
+            ctx.shadowColor = orb.palette.glow;
+            ctx.shadowBlur = 60;
             ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
             ctx.fill();
+            ctx.restore();
           });
 
           animationFrame = requestAnimationFrame(draw);
