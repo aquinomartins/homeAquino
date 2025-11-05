@@ -1406,6 +1406,199 @@
           padding: clamp(1.75rem, 6vw, 2.25rem);
         }
       }
+
+      .blur-hero {
+        position: relative;
+        min-height: clamp(640px, 96vh, 860px);
+        display: grid;
+        align-items: flex-end;
+        justify-items: center;
+        padding: clamp(5rem, 14vh, 7rem) 0 clamp(6rem, 16vh, 8rem);
+        margin-bottom: clamp(3rem, 8vh, 4.5rem);
+        isolation: isolate;
+        overflow: hidden;
+      }
+
+      .blur-hero__bg,
+      .blur-hero__fade {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: opacity 0.6s ease;
+      }
+
+      .blur-hero__bg {
+        z-index: -3;
+        filter: saturate(1.12);
+      }
+
+      .blur-hero__fade {
+        z-index: -2;
+        opacity: 0;
+      }
+
+      .blur-hero__gradient {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(1200px 600px at 62% 18%, rgba(15, 98, 254, 0.26), transparent 65%),
+          radial-gradient(1000px 540px at 10% 85%, rgba(8, 189, 186, 0.18), transparent 70%),
+          linear-gradient(to top, rgba(11, 13, 18, 0.92) 0%, rgba(11, 13, 18, 0.4) 45%, rgba(11, 13, 18, 0) 78%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .blur-hero__content {
+        position: absolute;
+        left: clamp(1.5rem, 8vw, 6rem);
+        bottom: clamp(170px, 26vh, 280px);
+        max-width: min(92vw, 560px);
+        text-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+        z-index: 2;
+      }
+
+      .blur-hero__kicker {
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        font-size: 0.85rem;
+        opacity: 0.85;
+        text-transform: uppercase;
+      }
+
+      .blur-hero__title {
+        margin: 0.35rem 0 0.5rem;
+        font-size: clamp(2rem, 4vw + 0.5rem, 3.4rem);
+        line-height: 1.05;
+        font-weight: 800;
+      }
+
+      .blur-hero__subtitle {
+        font-size: clamp(1rem, 1.25vw + 0.5rem, 1.3rem);
+        opacity: 0.92;
+        max-width: 32ch;
+      }
+
+      .blur-hero__actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      .blur-hero__thumbbar {
+        position: absolute;
+        left: clamp(1.25rem, 6vw, 4rem);
+        right: clamp(1.25rem, 6vw, 4rem);
+        bottom: clamp(1.75rem, 6vw, 2.75rem);
+        display: flex;
+        gap: 0.75rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding-bottom: 0.35rem;
+        z-index: 10;
+      }
+
+      .blur-hero__thumbbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .blur-hero__thumb {
+        min-width: 96px;
+        width: 96px;
+        height: 66px;
+        border-radius: 14px;
+        background: #171a1f center/cover no-repeat;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+        cursor: pointer;
+        position: relative;
+        flex: 0 0 auto;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .blur-hero__thumb::after {
+        content: attr(data-label);
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #f5f7fa;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .blur-hero__thumb:hover {
+        transform: translateY(-2px);
+      }
+
+      .blur-hero__thumb.is-active {
+        border-color: rgba(15, 98, 254, 0.95);
+        box-shadow:
+          0 10px 28px rgba(69, 137, 255, 0.25),
+          0 8px 24px rgba(0, 0, 0, 0.45);
+        outline: 2px solid rgba(69, 137, 255, 0.28);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (max-width: 960px) {
+        .blur-hero__content {
+          bottom: clamp(200px, 30vh, 300px);
+        }
+      }
+
+      @media (max-width: 720px) {
+        .blur-hero {
+          padding-top: clamp(4.5rem, 18vh, 6rem);
+          margin-bottom: clamp(2.5rem, 7vh, 3.5rem);
+        }
+
+        .blur-hero__content {
+          left: clamp(1rem, 6vw, 2rem);
+          bottom: clamp(220px, 34vh, 300px);
+        }
+
+        .blur-hero__thumb {
+          min-width: 88px;
+          width: 88px;
+          height: 60px;
+          border-radius: 12px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .blur-hero {
+          min-height: clamp(580px, 95vh, 720px);
+        }
+
+        .blur-hero__content {
+          bottom: clamp(240px, 36vh, 320px);
+        }
+
+        .blur-hero__title {
+          font-size: clamp(1.9rem, 7vw + 0.6rem, 2.6rem);
+        }
+
+        .blur-hero__actions {
+          gap: 0.75rem;
+        }
+      }
     </style>
   </head>
     <body>
@@ -1436,161 +1629,30 @@
     
 
     <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <span class="badge">Marketplace NFT líder no Brasil</span>
-          <h1>Descubra narrativas colecionáveis da cultura brasileira</h1>
-          <p>
-            BlueSea Brasil conecta artistas independentes, grandes clubes e marcas icônicas
-            em coleções que celebram nossa diversidade. Explore histórias digitais com
-            royalties automáticos, benefícios presenciais e experiências imersivas que só o
-            maior marketplace Web3 da América Latina entrega.
-          </p>
-          <div class="hero-actions">
+      <section class="blur-hero" aria-label="Coleções em destaque do marketplace">
+        <div class="blur-hero__bg" id="blurHeroBg"></div>
+        <div class="blur-hero__fade" id="blurHeroFade"></div>
+        <div class="blur-hero__gradient" aria-hidden="true"></div>
+
+        <div class="blur-hero__content" aria-live="polite">
+          <span class="blur-hero__kicker" id="blurHeroKicker">COLLECTION</span>
+          <h1 class="blur-hero__title" id="blurHeroTitle">Azuki — by Chiru Labs</h1>
+          <p class="blur-hero__subtitle" id="blurHeroSubtitle">Floor 0.90 Ξ · 24h Vol 119.2</p>
+          <div class="blur-hero__actions">
             <a class="btn btn-primary" href="#">Explorar coleções</a>
             <a class="btn btn-outline" href="#">Criar NFT</a>
           </div>
-          <div class="hero-highlights">
-            <div class="hero-highlight">
-              <span>Blueprint IBM</span>
-              <p>
-                Interface modular inspirada no Carbon Design System, com ritmo tipográfico preciso e foco na
-                legibilidade para decisões rápidas.
-              </p>
-            </div>
-            <div class="hero-highlight">
-              <span>Experiência enterprise</span>
-              <p>
-                Escalamos coleções com governança, métricas auditáveis e integrações seguras com parceiros
-                institucionais de todo o ecossistema.
-              </p>
-            </div>
-          </div>
-          <div class="stats">
-            <div class="stat-card">
-              <div class="stat-icon">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M4 17l4-4 4 4 8-8"></path>
-                  <circle cx="5" cy="5" r="2"></circle>
-                </svg>
-              </div>
-              <h4 data-target="2100000" data-format="compact" data-suffix="+">0</h4>
-              <span>Itens listados globalmente</span>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M4 19v-6l8-8 8 8v6"></path>
-                  <path d="M9 22v-4h6v4"></path>
-                </svg>
-              </div>
-              <h4 data-target="320000" data-format="compact" data-suffix="+">0</h4>
-              <span>Artistas ativos na rede</span>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M4 9h16"></path>
-                  <path d="M4 15h16"></path>
-                  <path d="M9 5v14"></path>
-                  <path d="M15 5v14"></path>
-                </svg>
-              </div>
-              <h4 data-target="600000000" data-format="currency">0</h4>
-              <span>Volume negociado em reais</span>
-            </div>
-          </div>
         </div>
-        <div class="hero-visual">
-          <div class="floating-pill">
-            <span>🎧</span>
-            <div>
-              <strong>Radio BlueSea</strong>
-              <small>Live 24/7</small>
-            </div>
-          </div>
-          <div class="hero-illustration" aria-hidden="true">
-            <svg viewBox="0 0 360 320" role="img">
-              <defs>
-                <linearGradient id="orbGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#0f62fe" stop-opacity="0.95" />
-                  <stop offset="55%" stop-color="#4589ff" stop-opacity="0.65" />
-                  <stop offset="100%" stop-color="#08bdba" stop-opacity="0.65" />
-                </linearGradient>
-                <radialGradient id="softGlow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#0f62fe" stop-opacity="0.6" />
-                  <stop offset="100%" stop-color="#0f62fe" stop-opacity="0" />
-                </radialGradient>
-              </defs>
-              <circle cx="190" cy="140" r="120" fill="url(#softGlow)" opacity="0.7"></circle>
-              <path
-                d="M40 220 C120 120, 240 120, 320 60"
-                stroke="url(#orbGradient)"
-                stroke-width="4"
-                fill="none"
-                opacity="0.75"
-              ></path>
-              <path
-                d="M40 260 C110 210, 220 230, 300 180"
-                stroke="rgba(69, 137, 255, 0.45)"
-                stroke-width="3"
-                fill="none"
-              ></path>
-              <circle cx="120" cy="90" r="22" fill="url(#orbGradient)" opacity="0.85"></circle>
-              <circle cx="260" cy="210" r="16" fill="rgba(69, 137, 255, 0.65)"></circle>
-              <circle cx="310" cy="120" r="10" fill="rgba(8, 189, 186, 0.75)"></circle>
-              <rect
-                x="90"
-                y="150"
-                width="180"
-                height="110"
-                rx="28"
-                fill="rgba(11, 13, 18, 0.92)"
-                stroke="rgba(69, 137, 255, 0.28)"
-              ></rect>
-              <polyline
-                points="120,200 160,180 200,210 240,170"
-                fill="none"
-                stroke="url(#orbGradient)"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></polyline>
-              <circle cx="120" cy="200" r="6" fill="rgba(8, 189, 186, 0.9)"></circle>
-              <circle cx="160" cy="180" r="6" fill="rgba(69, 137, 255, 0.9)"></circle>
-              <circle cx="200" cy="210" r="6" fill="rgba(69, 137, 255, 0.65)"></circle>
-              <circle cx="240" cy="170" r="6" fill="rgba(175, 214, 255, 0.9)"></circle>
-            </svg>
-          </div>
-          <div class="hero-card">
-            <img
-              src="https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?auto=format&fit=crop&w=800&q=80"
-              alt="NFT destaque"
-            />
-            <h3>Cosmic Jelly #482</h3>
-            <div class="card-meta">
-              <span>Drop exclusivo em 12h</span>
-              <span>Edição 1 de 100</span>
-            </div>
-            <div class="hero-card-footer">
-              <div class="hero-avatar">
-                <span>🌌</span>
-                <div>
-                  <strong>NovaLabs</strong>
-                  <small>Coleção verificada</small>
-                </div>
-              </div>
-              <div class="hero-pricing">
-                <strong>3.4 ETH</strong>
-                <span>≈ R$ 28.500</span>
-              </div>
-            </div>
-          </div>
-          <div class="hero-note">
-            &ldquo;Cada holder recebe um ingresso imersivo e acesso a bastidores exclusivos.&rdquo;
-          </div>
-        </div>
+
+        <div
+          class="blur-hero__thumbbar"
+          id="blurHeroThumbbar"
+          role="tablist"
+          aria-label="Selecionar coleção"
+        ></div>
       </section>
+
+      <span class="sr-only" id="blurHeroLive" aria-live="assertive"></span>
       
       <section class="art-strip" aria-label="Coleções em destaque em exibição contínua">
         <div class="art-strip-container">
@@ -2111,6 +2173,171 @@
     </footer>
 
     <script>
+      const blurHeroSection = document.querySelector(".blur-hero");
+      if (blurHeroSection) {
+        const blurHeroItems = [
+          {
+            label: "Orla Carioca",
+            title: "Orla Carioca — Estúdio Guanabara",
+            subtitle: "Floor 0.95 Ξ · Vol. 24h 118 Ξ",
+            image: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=2400&auto=format&fit=crop",
+          },
+          {
+            label: "Cyber Iara",
+            title: "Cyber Iara — Coletivo Oxum",
+            subtitle: "Floor 1.20 Ξ · Vol. 24h 88.4 Ξ",
+            image: "https://images.unsplash.com/photo-1604079628040-94301bb21b11?q=80&w=2400&auto=format&fit=crop",
+          },
+          {
+            label: "Festival Prisma",
+            title: "Festival Prisma — Beats Tropicais",
+            subtitle: "Floor 0.68 Ξ · Vol. 24h 54.6 Ξ",
+            image: "https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=2400&auto=format&fit=crop",
+          },
+          {
+            label: "Encantos do Cerrado",
+            title: "Encantos do Cerrado — Futuro Cerrado",
+            subtitle: "Floor 1.7 Ξ · Vol. 24h 35.2 Ξ",
+            image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2400&auto=format&fit=crop",
+          },
+          {
+            label: "Neon Dreams",
+            title: "Neon Dreams — Neon Dreams Studio",
+            subtitle: "Floor 2.1 Ξ · Vol. 24h 62.8 Ξ",
+            image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2400&auto=format&fit=crop",
+          },
+        ];
+
+        const blurHeroBg = document.getElementById("blurHeroBg");
+        const blurHeroFade = document.getElementById("blurHeroFade");
+        const blurHeroTitle = document.getElementById("blurHeroTitle");
+        const blurHeroSubtitle = document.getElementById("blurHeroSubtitle");
+        const blurHeroKicker = document.getElementById("blurHeroKicker");
+        const blurHeroThumbbar = document.getElementById("blurHeroThumbbar");
+        const blurHeroLive = document.getElementById("blurHeroLive");
+
+        let blurHeroIndex = 0;
+        let blurHeroRotating = true;
+        let blurHeroTimer;
+        let blurHeroTouchX = null;
+
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        const updateThumbStates = (activeIndex) => {
+          Array.from(blurHeroThumbbar.children).forEach((thumb, index) => {
+            const isActive = index === activeIndex;
+            thumb.classList.toggle("is-active", isActive);
+            thumb.setAttribute("aria-selected", isActive ? "true" : "false");
+          });
+        };
+
+        const setBlurHero = (nextIndex, options = {}) => {
+          const { announce = true } = options;
+          const item = blurHeroItems[nextIndex];
+          if (!item) return;
+
+          if (!prefersReducedMotion.matches) {
+            blurHeroFade.style.backgroundImage = `url('${item.image}')`;
+            blurHeroFade.style.opacity = 1;
+            setTimeout(() => {
+              blurHeroBg.style.backgroundImage = `url('${item.image}')`;
+              blurHeroFade.style.opacity = 0;
+            }, 18);
+          } else {
+            blurHeroBg.style.backgroundImage = `url('${item.image}')`;
+            blurHeroFade.style.opacity = 0;
+          }
+
+          blurHeroTitle.textContent = item.title;
+          blurHeroSubtitle.textContent = item.subtitle;
+          blurHeroKicker.textContent = item.kicker || "COLEÇÃO EM DESTAQUE";
+          updateThumbStates(nextIndex);
+
+          if (announce && blurHeroLive) {
+            blurHeroLive.textContent = `Selecionado: ${item.title}`;
+          }
+
+          blurHeroIndex = nextIndex;
+        };
+
+        const renderBlurHeroThumbs = () => {
+          blurHeroItems.forEach((item, index) => {
+            const thumb = document.createElement("button");
+            thumb.type = "button";
+            thumb.className = "blur-hero__thumb";
+            thumb.style.backgroundImage = `url('${item.image}')`;
+            thumb.dataset.label = item.label;
+            thumb.setAttribute("role", "tab");
+            thumb.setAttribute("aria-selected", index === 0 ? "true" : "false");
+            thumb.addEventListener("click", () => {
+              blurHeroRotating = false;
+              clearInterval(blurHeroTimer);
+              setBlurHero(index);
+            });
+            thumb.addEventListener("focus", () => {
+              blurHeroRotating = false;
+              clearInterval(blurHeroTimer);
+              setBlurHero(index, { announce: false });
+            });
+            blurHeroThumbbar.appendChild(thumb);
+          });
+        };
+
+        const startAutoRotate = () => {
+          clearInterval(blurHeroTimer);
+          blurHeroTimer = window.setInterval(() => {
+            if (!blurHeroRotating) return;
+            const next = (blurHeroIndex + 1) % blurHeroItems.length;
+            setBlurHero(next, { announce: false });
+          }, 5000);
+        };
+
+        window.addEventListener("keydown", (event) => {
+          if (!blurHeroSection.contains(document.activeElement)) return;
+          if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+            event.preventDefault();
+            blurHeroRotating = false;
+            clearInterval(blurHeroTimer);
+            const delta = event.key === "ArrowRight" ? 1 : -1;
+            const next = (blurHeroIndex + delta + blurHeroItems.length) % blurHeroItems.length;
+            setBlurHero(next);
+          }
+        });
+
+        blurHeroSection.addEventListener(
+          "touchstart",
+          (event) => {
+            if (!event.touches.length) return;
+            blurHeroTouchX = event.touches[0].clientX;
+          },
+          { passive: true }
+        );
+
+        blurHeroSection.addEventListener(
+          "touchend",
+          (event) => {
+            if (blurHeroTouchX === null) return;
+            const deltaX = event.changedTouches[0].clientX - blurHeroTouchX;
+            if (Math.abs(deltaX) > 40) {
+              blurHeroRotating = false;
+              clearInterval(blurHeroTimer);
+              if (deltaX < 0) {
+                setBlurHero((blurHeroIndex + 1) % blurHeroItems.length);
+              } else {
+                setBlurHero((blurHeroIndex - 1 + blurHeroItems.length) % blurHeroItems.length);
+              }
+            }
+            blurHeroTouchX = null;
+          },
+          { passive: true }
+        );
+
+        blurHeroBg.style.backgroundImage = `url('${blurHeroItems[0].image}')`;
+        renderBlurHeroThumbs();
+        setBlurHero(0, { announce: false });
+        startAutoRotate();
+      }
+
       const canvas = document.getElementById("background-canvas");
       if (canvas && canvas.getContext) {
         const ctx = canvas.getContext("2d");
