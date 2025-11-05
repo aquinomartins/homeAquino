@@ -32,12 +32,19 @@
         padding: 0;
       }
 
+      html {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
       body {
         font-family: "IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         background-color: var(--bg);
         color: var(--text);
         min-height: 100vh;
         position: relative;
+        max-width: 100vw;
         overflow-x: hidden;
         background-image:
           radial-gradient(circle at 20% -10%, rgba(69, 137, 255, 0.25), transparent 55%),
@@ -1155,6 +1162,14 @@
           margin-inline: auto;
         }
 
+        .floating-pill {
+          right: 0;
+        }
+
+        .hero-note {
+          left: 0;
+        }
+
         .hero-highlights {
           grid-template-columns: 1fr;
         }
@@ -1359,6 +1374,15 @@
         .hero {
           padding: clamp(3.2rem, 7vw, 3.8rem) clamp(1.25rem, 6vw, 1.75rem)
             clamp(2.6rem, 7vw, 3.2rem);
+        }
+
+        .hero::before {
+          inset: -2.2rem -2%;
+          border-radius: 38px;
+        }
+
+        .hero::after {
+          inset: -1.8rem -1.5%;
         }
 
         .hero-visual::before {
