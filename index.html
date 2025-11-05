@@ -160,6 +160,124 @@
         align-items: center;
       }
 
+      .art-strip {
+        position: relative;
+        overflow: hidden;
+        border-top: 1px solid rgba(148, 163, 184, 0.12);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        background: linear-gradient(180deg, rgba(4, 17, 29, 0.85), rgba(12, 22, 38, 0.78));
+        padding: 1.5rem 0;
+        isolation: isolate;
+      }
+
+      .art-strip::before,
+      .art-strip::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 140px;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .art-strip::before {
+        left: 0;
+        background: linear-gradient(90deg, var(--bg) 0%, rgba(4, 17, 29, 0));
+      }
+
+      .art-strip::after {
+        right: 0;
+        background: linear-gradient(270deg, var(--bg) 0%, rgba(4, 17, 29, 0));
+      }
+
+      .art-strip-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: grid;
+        gap: 1.25rem;
+      }
+
+      .art-strip-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .art-strip-header strong {
+        font-size: 0.95rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .art-strip-row {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .art-strip-track {
+        display: flex;
+        gap: 1.5rem;
+        width: max-content;
+        animation: art-scroll 36s linear infinite;
+        will-change: transform;
+      }
+
+      .art-strip-track.reverse {
+        animation-direction: reverse;
+        animation-duration: 42s;
+      }
+
+      .art-card {
+        flex: 0 0 auto;
+        width: 210px;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        background: rgba(12, 22, 38, 0.85);
+        box-shadow: 0 18px 36px rgba(2, 8, 20, 0.4);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+      }
+
+      .art-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(32, 129, 226, 0.4);
+      }
+
+      .art-card img {
+        display: block;
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+      }
+
+      .art-card-content {
+        padding: 1rem;
+        display: grid;
+        gap: 0.45rem;
+      }
+
+      .art-card-content span {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+      }
+
+      .art-card-content strong {
+        font-size: 0.98rem;
+        color: var(--text);
+      }
+
+      .art-card-content small {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+      }
+
       .btn {
         padding: 0.65rem 1.25rem;
         border-radius: 12px;
@@ -740,6 +858,15 @@
         mask-composite: exclude;
       }
 
+      @keyframes art-scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
       @keyframes float {
         0%,
         100% {
@@ -770,6 +897,24 @@
 
         .nav-container {
           justify-content: space-between;
+        }
+
+        .art-strip-container {
+          padding: 0 1.5rem;
+        }
+
+        .art-strip-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.4rem;
+        }
+
+        .art-card {
+          width: 160px;
+        }
+
+        .art-card img {
+          height: 110px;
         }
 
         .hero {
@@ -816,6 +961,287 @@
         </div>
       </div>
     </header>
+
+    <section class="art-strip" aria-label="Coleções em destaque em exibição contínua">
+      <div class="art-strip-container">
+        <div class="art-strip-header">
+          <strong>BlueSea Live Drops</strong>
+          <span>Novas artes surgem a cada batida da blockchain</span>
+        </div>
+        <div class="art-strip-row">
+          <div class="art-strip-track">
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=600&q=80"
+                alt="Ilustração vibrante de prédios na orla carioca"
+              />
+              <div class="art-card-content">
+                <span>Nova coleção</span>
+                <strong>Orla Carioca #210</strong>
+                <small>por Estúdio Guanabara</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1604079628040-94301bb21b11?auto=format&fit=crop&w=600&q=80"
+                alt="Retrato cyberpunk de uma sereia futurista"
+              />
+              <div class="art-card-content">
+                <span>Drop relâmpago</span>
+                <strong>Cyber Iara #77</strong>
+                <small>por Coletivo Oxum</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80"
+                alt="Paisagem urbana colorida com grafite futurista"
+              />
+              <div class="art-card-content">
+                <span>Em alta</span>
+                <strong>Favelas Futuristas #12</strong>
+                <small>por VJ Rastro</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"
+                alt="Deserto iluminado por tons neon e esculturas geométricas"
+              />
+              <div class="art-card-content">
+                <span>Edição limitada</span>
+                <strong>Sertão Synthwave #04</strong>
+                <small>por Luiza Tron</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?auto=format&fit=crop&w=600&q=80"
+                alt="Personagens mascarados dançando em um bloco neon"
+              />
+              <div class="art-card-content">
+                <span>Evento especial</span>
+                <strong>Bloco Neon #98</strong>
+                <small>por Rave do Centro</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80"
+                alt="Folhagens e rios amazônicos com filtros prismáticos"
+              />
+              <div class="art-card-content">
+                <span>Revelação</span>
+                <strong>Amazônia Prisma #301</strong>
+                <small>por Studio Arara</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Nova coleção</span>
+                <strong>Orla Carioca #210</strong>
+                <small>por Estúdio Guanabara</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1604079628040-94301bb21b11?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Drop relâmpago</span>
+                <strong>Cyber Iara #77</strong>
+                <small>por Coletivo Oxum</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Em alta</span>
+                <strong>Favelas Futuristas #12</strong>
+                <small>por VJ Rastro</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Edição limitada</span>
+                <strong>Sertão Synthwave #04</strong>
+                <small>por Luiza Tron</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Evento especial</span>
+                <strong>Bloco Neon #98</strong>
+                <small>por Rave do Centro</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Revelação</span>
+                <strong>Amazônia Prisma #301</strong>
+                <small>por Studio Arara</small>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="art-strip-row">
+          <div class="art-strip-track reverse">
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80"
+                alt="Escultura digital translúcida iluminada em azul"
+              />
+              <div class="art-card-content">
+                <span>Trending</span>
+                <strong>Lendas do Mar #11</strong>
+                <small>por Atlântida DAO</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=600&q=80"
+                alt="Prédios estilizados refletidos em águas neon"
+              />
+              <div class="art-card-content">
+                <span>Curadoria</span>
+                <strong>Cidade Espectral #45</strong>
+                <small>por Pixel Nordeste</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80"
+                alt="Figura mística cercada por partículas brilhantes"
+              />
+              <div class="art-card-content">
+                <span>Quente agora</span>
+                <strong>Encantos de Oxalá #06</strong>
+                <small>por Ilê Digital</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?auto=format&fit=crop&w=600&q=80"
+                alt="Multidão colorida celebrando com efeitos de luz"
+              />
+              <div class="art-card-content">
+                <span>Recomendado</span>
+                <strong>Festival Prisma #88</strong>
+                <small>por Beats Tropicais</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80"
+                alt="Estruturas geométricas em ambiente iluminado"
+              />
+              <div class="art-card-content">
+                <span>Drop premium</span>
+                <strong>Plano Brasília #27</strong>
+                <small>por Futuro Cerrado</small>
+              </div>
+            </article>
+            <article class="art-card">
+              <img
+                src="https://images.unsplash.com/photo-1526312426976-f4d754fa9bd6?auto=format&fit=crop&w=600&q=80"
+                alt="Escultura de cristal com reflexos dourados"
+              />
+              <div class="art-card-content">
+                <span>Lançamento</span>
+                <strong>Minerais do Tempo #02</strong>
+                <small>por Kuarup Lab</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Trending</span>
+                <strong>Lendas do Mar #11</strong>
+                <small>por Atlântida DAO</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Curadoria</span>
+                <strong>Cidade Espectral #45</strong>
+                <small>por Pixel Nordeste</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Quente agora</span>
+                <strong>Encantos de Oxalá #06</strong>
+                <small>por Ilê Digital</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Recomendado</span>
+                <strong>Festival Prisma #88</strong>
+                <small>por Beats Tropicais</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Drop premium</span>
+                <strong>Plano Brasília #27</strong>
+                <small>por Futuro Cerrado</small>
+              </div>
+            </article>
+            <article class="art-card" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1526312426976-f4d754fa9bd6?auto=format&fit=crop&w=600&q=80"
+                alt=""
+              />
+              <div class="art-card-content">
+                <span>Lançamento</span>
+                <strong>Minerais do Tempo #02</strong>
+                <small>por Kuarup Lab</small>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <main>
       <section class="hero">
