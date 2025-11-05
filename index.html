@@ -1,6 +1,560 @@
-<html>
-  <head><title>Jesus Cristo_O Caminho, A Verdade e A Vida</title></head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marketplace NFT - Inspirado no OpenSea</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #04111d;
+        --bg-alt: #0c1626;
+        --card-bg: rgba(12, 22, 38, 0.6);
+        --primary: #2081e2;
+        --primary-light: rgba(32, 129, 226, 0.16);
+        --text: #f0f6ff;
+        --text-muted: #94a3b8;
+        --border: rgba(148, 163, 184, 0.15);
+        font-size: 16px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: radial-gradient(circle at top, #0b2239, var(--bg));
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(16px);
+        background: rgba(4, 17, 29, 0.7);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 700;
+        font-size: 1.15rem;
+      }
+
+      .logo-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #2081e2, #41c7ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 1.75rem;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .search {
+        flex: 1;
+        max-width: 320px;
+        position: relative;
+      }
+
+      .search input {
+        width: 100%;
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 0.75rem 2.5rem 0.75rem 1rem;
+        color: var(--text);
+      }
+
+      .search input::placeholder {
+        color: var(--text-muted);
+      }
+
+      .search span {
+        position: absolute;
+        right: 0.9rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 0.65rem 1.25rem;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(32, 129, 226, 0.18);
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .btn-outline {
+        border: 1px solid var(--border);
+        color: var(--text);
+        background: transparent;
+      }
+
+      .hero {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 5rem 2rem 4rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        line-height: 1.1;
+        margin-bottom: 1.25rem;
+      }
+
+      .hero-copy p {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .hero-card {
+        background: linear-gradient(160deg, rgba(32, 129, 226, 0.18), rgba(12, 22, 38, 0.85));
+        border-radius: 24px;
+        padding: 2rem;
+        border: 1px solid rgba(32, 129, 226, 0.28);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(15, 23, 42, 0.35);
+      }
+
+      .hero-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%);
+        pointer-events: none;
+      }
+
+      .hero-card img {
+        width: 100%;
+        border-radius: 18px;
+        margin-bottom: 1.5rem;
+        object-fit: cover;
+      }
+
+      .hero-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.45rem 0.95rem;
+        border-radius: 999px;
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+      }
+
+      .section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem 4rem;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+      }
+
+      .section-header h2 {
+        font-size: 1.75rem;
+      }
+
+      .section-header a {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .collection-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 1.25rem;
+        border: 1px solid var(--border);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .collection-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(32, 129, 226, 0.45);
+      }
+
+      .collection-card img {
+        width: 100%;
+        border-radius: 14px;
+        margin-bottom: 1rem;
+      }
+
+      .collection-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .collection-card .floor {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .stats {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin-top: 2.5rem;
+      }
+
+      .stat-card {
+        flex: 1 1 200px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 1.5rem;
+      }
+
+      .stat-card h4 {
+        font-size: 2rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-card span {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        background: rgba(4, 17, 29, 0.8);
+        padding: 2.5rem 2rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .footer-content h4 {
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        display: grid;
+        gap: 0.75rem;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .newsletter {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .newsletter input {
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: var(--bg-alt);
+        color: var(--text);
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          display: none;
+        }
+
+        .search {
+          display: none;
+        }
+
+        .nav-container {
+          justify-content: space-between;
+        }
+
+        .hero {
+          padding: 4rem 1.5rem 3rem;
+        }
+
+        .section {
+          padding: 0 1.5rem 3rem;
+        }
+      }
+    </style>
+  </head>
   <body>
-    <h1>Jesus Cristo_O Caminho, A Verdade e A Vida</h1>
+    <header>
+      <div class="nav-container">
+        <a class="logo" href="#">
+          <span class="logo-icon">🌊</span>
+          <span>BlueSea</span>
+        </a>
+        <div class="search">
+          <input type="text" placeholder="Buscar itens, coleções e contas" />
+          <span>⌘K</span>
+        </div>
+        <nav>
+          <a href="#">Explorar</a>
+          <a href="#">Estatísticas</a>
+          <a href="#">Recursos</a>
+          <a href="#">Criar</a>
+        </nav>
+        <div class="cta-buttons">
+          <a class="btn btn-outline" href="#">Conectar carteira</a>
+          <a class="btn btn-primary" href="#">Cadastre-se</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="badge">Marketplace NFT líder</span>
+          <h1>Descubra, colete e venda NFTs extraordinários</h1>
+          <p>
+            BlueSea é a plataforma pioneira para negociar NFTs exclusivos. Explore
+            artes digitais, coleções colecionáveis e experiências imersivas criadas
+            pelos melhores artistas Web3 do mundo.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#">Explorar coleções</a>
+            <a class="btn btn-outline" href="#">Criar NFT</a>
+          </div>
+          <div class="stats">
+            <div class="stat-card">
+              <h4>2,1M+</h4>
+              <span>Itens listados</span>
+            </div>
+            <div class="stat-card">
+              <h4>320K+</h4>
+              <span>Artistas ativos</span>
+            </div>
+            <div class="stat-card">
+              <h4>US$ 4,8B</h4>
+              <span>Volume negociado</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <img
+            src="https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?auto=format&fit=crop&w=800&q=80"
+            alt="NFT destaque"
+          />
+          <h3>Cosmic Jelly #482</h3>
+          <div class="card-meta">
+            <span>por NovaLabs</span>
+            <span>3.4 ETH</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Coleções em destaque</h2>
+          <a href="#">Ver tudo</a>
+        </div>
+        <div class="grid">
+          <article class="collection-card">
+            <img
+              src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92eee?auto=format&fit=crop&w=600&q=80"
+              alt="Coleção Neon Dreams"
+            />
+            <h3>Neon Dreams</h3>
+            <p class="floor">Floor price: 0.88 ETH · Volume: 12.4K ETH</p>
+          </article>
+          <article class="collection-card">
+            <img
+              src="https://images.unsplash.com/photo-1614849963640-9cc74c83481f?auto=format&fit=crop&w=600&q=80"
+              alt="Coleção Pixel Creatures"
+            />
+            <h3>Pixel Creatures</h3>
+            <p class="floor">Floor price: 0.24 ETH · Volume: 4.2K ETH</p>
+          </article>
+          <article class="collection-card">
+            <img
+              src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80"
+              alt="Coleção MetaVoyagers"
+            />
+            <h3>MetaVoyagers</h3>
+            <p class="floor">Floor price: 1.14 ETH · Volume: 28.7K ETH</p>
+          </article>
+          <article class="collection-card">
+            <img
+              src="https://images.unsplash.com/photo-1526318472351-c75fcf07094f?auto=format&fit=crop&w=600&q=80"
+              alt="Coleção Spirit Animals"
+            />
+            <h3>Spirit Animals</h3>
+            <p class="floor">Floor price: 0.64 ETH · Volume: 9.1K ETH</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Drops em alta</h2>
+          <a href="#">Agendar alerta</a>
+        </div>
+        <div class="grid">
+          <article class="collection-card">
+            <img
+              src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=600&q=80"
+              alt="Coleção Future Relics"
+            />
+            <h3>Future Relics</h3>
+            <p class="floor">Drop em 2h · 500 itens</p>
+          </article>
+          <article class="collection-card">
+            <img
+              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80"
+              alt="Coleção Lunar Echoes"
+            />
+            <h3>Lunar Echoes</h3>
+            <p class="floor">Drop em 6h · 1.2K itens</p>
+          </article>
+          <article class="collection-card">
+            <img
+              src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80"
+              alt="Coleção Code Genesis"
+            />
+            <h3>Code Genesis</h3>
+            <p class="floor">Drop amanhã · 800 itens</p>
+          </article>
+          <article class="collection-card">
+            <img
+              src="https://images.unsplash.com/photo-1610276198568-eb6d0ff53e48?auto=format&fit=crop&w=600&q=80"
+              alt="Coleção Dream Capsules"
+            />
+            <h3>Dream Capsules</h3>
+            <p class="floor">Drop em 2 dias · 2K itens</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div>
+          <div class="logo">
+            <span class="logo-icon">🌊</span>
+            <span>BlueSea</span>
+          </div>
+          <p style="color: var(--text-muted); margin-top: 1rem; line-height: 1.6;">
+            O marketplace NFT mais confiável do ecossistema Web3. Junte-se a milhões de
+            criadores e colecionadores em todo o mundo.
+          </p>
+        </div>
+        <div>
+          <h4>Marketplace</h4>
+          <div class="footer-links">
+            <a href="#">Explorar NFTs</a>
+            <a href="#">Rankings</a>
+            <a href="#">Drops</a>
+            <a href="#">Criar</a>
+          </div>
+        </div>
+        <div>
+          <h4>Empresa</h4>
+          <div class="footer-links">
+            <a href="#">Sobre</a>
+            <a href="#">Carreiras</a>
+            <a href="#">Blog</a>
+            <a href="#">Suporte</a>
+          </div>
+        </div>
+        <div class="newsletter">
+          <h4>Receba novidades</h4>
+          <p style="color: var(--text-muted);">
+            Assine a newsletter para atualizações semanais, drops e eventos exclusivos.
+          </p>
+          <input type="email" placeholder="Seu email" />
+          <button class="btn btn-primary" type="button">Inscrever-se</button>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
