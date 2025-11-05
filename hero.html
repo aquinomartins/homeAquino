@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hero — estilo Blur</title>
+  <style>
+    /* ---------- Reset / base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { width:100%; height:100%; overflow-x:hidden; margin:0; }
+    body { background:#0d0f12; color:#e9eef3; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial; }
+
+    /* ---------- Header simples ---------- */
+    .topbar {
+      position: fixed; inset: 0 0 auto 0; height: 56px;
+      display:flex; align-items:center; gap:24px; padding:0 16px;
+      background: rgba(13,15,18,.6); backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255,255,255,.06); z-index: 30;
+    }
+    .brand { font-weight:700; letter-spacing:.08em; color:#ff8b1f; }
+    .spacer { flex:1; }
+    .btn {
+      background:#ff8b1f; color:#131518; font-weight:700; padding:8px 14px; border-radius:10px; text-decoration:none;
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      height: 100vh; /* ocupa a dobra */
+      display:grid; place-items:end center;
+      padding: 56px 0 112px; /* espaço p/ topbar e thumbnails */
+      isolation:isolate;
+    }
+    .hero__bg, .hero__fade {
+      position:absolute; inset:0; background-size:cover; background-position:center;
+      transition: opacity .6s ease;
+    }
+    .hero__bg { z-index:-2; }
+    .hero__fade { z-index:-1; opacity:0; }
+    .hero__gradient {
+      position:absolute; inset:0;
+      background: radial-gradient(1200px 600px at 60% 20%, rgba(255,139,31,.20), transparent 60%),
+                  linear-gradient(to top, #0d0f12 0%, rgba(13,15,18,.2) 40%, rgba(13,15,18,0) 70%);
+      pointer-events:none; z-index:0;
+    }
+
+    /* ---------- Texto sobreposto ---------- */
+    .hero__content {
+      position:absolute; left: clamp(16px, 6vw, 56px); bottom: clamp(140px, 18vh, 240px);
+      max-width:min(92vw, 680px);
+      text-shadow: 0 10px 30px rgba(0,0,0,.6);
+    }
+    .kicker { opacity:.85; font-weight:700; letter-spacing:.12em; font-size:.85rem; }
+    .title { margin:.25rem 0 .35rem; font-size: clamp(1.75rem, 4vw + .5rem, 3.25rem); line-height:1.05; font-weight:800; }
+    .subtitle { opacity:.9; font-size: clamp(.95rem, 1.2vw + .4rem, 1.15rem); }
+
+    /* ---------- Thumbnails (carrossel) ---------- */
+    .thumbbar {
+      position:absolute; left:0; right:0; bottom: 24px;
+      display:flex; gap:12px; padding:0 16px;
+      overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; z-index:10;
+    }
+    .thumbbar::-webkit-scrollbar { display:none; }
+    .thumb {
+      min-width: 96px; width:96px; height:64px; border-radius:12px;
+      background:#171a1f center/cover no-repeat;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      cursor:pointer; position:relative; flex:0 0 auto;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .thumb::after {
+      content: attr(data-label);
+      position:absolute; left:8px; bottom:8px; right:8px;
+      font-size:.72rem; font-weight:700; color:#e9eef3;
+      text-shadow: 0 2px 12px rgba(0,0,0,.9);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .thumb:hover { transform: translateY(-2px); }
+    .thumb.is-active {
+      border-color:#ff8b1f; box-shadow: 0 10px 28px rgba(255,139,31,.25), 0 8px 24px rgba(0,0,0,.45);
+      outline: 2px solid rgba(255,139,31,.28);
+    }
+
+    /* ---------- Acessibilidade / toques ---------- */
+    .sr-only {
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    @media (max-width: 640px) {
+      .thumb { min-width:84px; width:84px; height:56px; border-radius:10px; }
+      .hero { padding-bottom: 124px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" role="navigation">
+    <div class="brand">BLUR-LIKE</div>
+    <div class="spacer"></div>
+    <a class="btn" href="#" aria-label="Conectar carteira">CONNECT</a>
+  </header>
+
+  <main class="hero" aria-label="Hero com carrossel de coleções">
+    <!-- camadas de fundo -->
+    <div class="hero__bg" id="bg"></div>
+    <div class="hero__fade" id="fade"></div>
+    <div class="hero__gradient" aria-hidden="true"></div>
+
+    <!-- textos -->
+    <div class="hero__content" aria-live="polite">
+      <div class="kicker" id="kicker">COLLECTION</div>
+      <h1 class="title" id="title">Azuki — by Chiru Labs</h1>
+      <p class="subtitle" id="subtitle">Floor 0.90 Ξ · 24h Vol 119.2</p>
+    </div>
+
+    <!-- miniaturas -->
+    <div class="thumbbar" id="thumbbar" role="tablist" aria-label="Selecionar coleção">
+      <!-- preenchida via JS -->
+    </div>
+  </main>
+
+  <span class="sr-only" id="liveRegion" aria-live="assertive"></span>
+
+  <script>
+    /* ========= Dados do carrossel (troque as imagens/títulos) ========= */
+    const items = [
+      {
+        label: "Azuki",
+        title: "Azuki — by Chiru Labs",
+        subtitle: "Floor 0.90 Ξ · 24h Vol 119.2",
+        image: "https://images.unsplash.com/photo-1530035415911-95194de4ebcc?q=80&w=2400&auto=format&fit=crop"
+      },
+      {
+        label: "Kanpai Pandas",
+        title: "Kanpai Pandas",
+        subtitle: "Floor 1.20 Ξ · 24h Vol 88.4",
+        image: "https://images.unsplash.com/photo-1598514983042-1f5f4754060b?q=80&w=2400&auto=format&fit=crop"
+      },
+      {
+        label: "BAYC",
+        title: "Bored Ape Yacht Club",
+        subtitle: "Floor 22.1 Ξ · 24h Vol 310.6",
+        image: "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=2400&auto=format&fit=crop"
+      },
+      {
+        label: "DeGods",
+        title: "DeGods",
+        subtitle: "Floor 3.9 Ξ · 24h Vol 51.0",
+        image: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913?q=80&w=2400&auto=format&fit=crop"
+      },
+      {
+        label: "Doodles",
+        title: "Doodles",
+        subtitle: "Floor 1.7 Ξ · 24h Vol 29.3",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2400&auto=format&fit=crop"
+      },
+    ];
+
+    /* ========= Seletores ========= */
+    const bg = document.getElementById('bg');
+    const fade = document.getElementById('fade');
+    const title = document.getElementById('title');
+    const subtitle = document.getElementById('subtitle');
+    const kicker = document.getElementById('kicker');
+    const thumbbar = document.getElementById('thumbbar');
+    const liveRegion = document.getElementById('liveRegion');
+
+    let index = 0;
+    let rotating = true;
+    let rotateTimer;
+
+    /* ========= Util: troca com fade ========= */
+    function setHero(i, opts = {announce:true}) {
+      const item = items[i];
+      // inicia fade
+      fade.style.backgroundImage = `url('${item.image}')`;
+      fade.style.opacity = 1;
+      // após a transição, fixa no bg
+      setTimeout(() => {
+        bg.style.backgroundImage = `url('${item.image}')`;
+        fade.style.opacity = 0;
+      }, 18); // pequeno delay para disparar transição
+
+      title.textContent = item.title;
+      subtitle.textContent = item.subtitle;
+      kicker.textContent = "COLLECTION";
+      [...thumbbar.children].forEach((el, j) => el.classList.toggle('is-active', j === i));
+
+      if (opts.announce) liveRegion.textContent = `Selecionado: ${item.title}`;
+      index = i;
+    }
+
+    /* ========= Render miniaturas ========= */
+    function renderThumbs() {
+      items.forEach((item, i) => {
+        const t = document.createElement('button');
+        t.className = 'thumb';
+        t.type = 'button';
+        t.style.backgroundImage = `url('${item.image}')`;
+        t.dataset.label = item.label;
+        t.setAttribute('role', 'tab');
+        t.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        t.addEventListener('click', () => {
+          rotating = false;
+          clearInterval(rotateTimer);
+          setHero(i);
+          t.setAttribute('aria-selected', 'true');
+          [...thumbbar.children].forEach(el => { if (el !== t) el.setAttribute('aria-selected', 'false'); });
+        });
+        thumbbar.appendChild(t);
+      });
+      thumbbar.firstElementChild.classList.add('is-active');
+    }
+
+    /* ========= Auto-rotação (pausa ao interagir) ========= */
+    function startAutoRotate() {
+      rotateTimer = setInterval(() => {
+        if (!rotating) return;
+        const next = (index + 1) % items.length;
+        setHero(next, {announce:false});
+      }, 5000);
+    }
+
+    /* ========= Navegação por teclado ========= */
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { rotating = false; clearInterval(rotateTimer); setHero((index+1)%items.length); }
+      if (e.key === 'ArrowLeft')  { rotating = false; clearInterval(rotateTimer); setHero((index-1+items.length)%items.length); }
+    });
+
+    /* ========= Swipe no mobile ========= */
+    let touchX = null;
+    window.addEventListener('touchstart', e => touchX = e.touches[0].clientX, {passive:true});
+    window.addEventListener('touchend', e => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) {
+        rotating = false; clearInterval(rotateTimer);
+        if (dx < 0) setHero((index+1)%items.length);
+        else setHero((index-1+items.length)%items.length);
+      }
+      touchX = null;
+    }, {passive:true});
+
+    /* ========= Init ========= */
+    // predefine o primeiro bg
+    bg.style.backgroundImage = `url('${items[0].image}')`;
+    renderThumbs();
+    setHero(0, {announce:false});
+    startAutoRotate();
+  </script>
+</body>
+</html>
