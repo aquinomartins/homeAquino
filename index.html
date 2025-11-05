@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Marketplace NFT - Inspirado no OpenSea</title>
+    <title>BlueSea Brasil — Marketplace NFT inspirado no OpenSea</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,8 +15,9 @@
         --bg: #04111d;
         --bg-alt: #0c1626;
         --card-bg: rgba(12, 22, 38, 0.6);
-        --primary: #2081e2;
-        --primary-light: rgba(32, 129, 226, 0.16);
+        --primary: #1ea7ff;
+        --primary-light: rgba(30, 167, 255, 0.16);
+        --accent: linear-gradient(135deg, #1ea7ff, #1abc9c 55%, #f0c808);
         --text: #f0f6ff;
         --text-muted: #94a3b8;
         --border: rgba(148, 163, 184, 0.15);
@@ -31,9 +32,37 @@
 
       body {
         font-family: "Inter", sans-serif;
-        background: radial-gradient(circle at top, #0b2239, var(--bg));
+        background: radial-gradient(circle at top, rgba(32, 129, 226, 0.12), var(--bg));
         color: var(--text);
         min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.45;
+        z-index: -1;
+      }
+
+      body::before {
+        width: 520px;
+        height: 520px;
+        top: -220px;
+        right: -160px;
+        background: radial-gradient(circle, rgba(30, 167, 255, 0.35), transparent 70%);
+      }
+
+      body::after {
+        width: 420px;
+        height: 420px;
+        bottom: -180px;
+        left: -140px;
+        background: radial-gradient(circle, rgba(26, 188, 156, 0.4), transparent 65%);
       }
 
       a {
@@ -72,7 +101,7 @@
         width: 38px;
         height: 38px;
         border-radius: 12px;
-        background: linear-gradient(135deg, #2081e2, #41c7ff);
+        background: var(--accent);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -138,6 +167,7 @@
       .btn-primary {
         background: var(--primary);
         color: #fff;
+        box-shadow: 0 18px 42px rgba(30, 167, 255, 0.2);
       }
 
       .btn-outline {
@@ -151,8 +181,8 @@
         margin: 0 auto;
         padding: 5rem 2rem 4rem;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 3rem;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 3.5rem;
         align-items: center;
       }
 
@@ -163,8 +193,8 @@
       }
 
       .hero-copy p {
-        font-size: 1.05rem;
-        line-height: 1.6;
+        font-size: 1.12rem;
+        line-height: 1.75;
         color: var(--text-muted);
         margin-bottom: 2rem;
       }
@@ -176,7 +206,7 @@
       }
 
       .hero-card {
-        background: linear-gradient(160deg, rgba(32, 129, 226, 0.18), rgba(12, 22, 38, 0.85));
+        background: linear-gradient(160deg, rgba(32, 129, 226, 0.22), rgba(12, 22, 38, 0.85));
         border-radius: 24px;
         padding: 2rem;
         border: 1px solid rgba(32, 129, 226, 0.28);
@@ -198,6 +228,7 @@
         border-radius: 18px;
         margin-bottom: 1.5rem;
         object-fit: cover;
+        border: 1px solid rgba(255, 255, 255, 0.08);
       }
 
       .hero-card h3 {
@@ -217,17 +248,19 @@
         display: inline-block;
         padding: 0.45rem 0.95rem;
         border-radius: 999px;
-        background: var(--primary-light);
+        background: rgba(30, 167, 255, 0.18);
         color: var(--primary);
         font-weight: 600;
         font-size: 0.85rem;
         margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
       }
 
       .section {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 2rem 4rem;
+        padding: 0 2rem 4.5rem;
       }
 
       .section-header {
@@ -258,11 +291,27 @@
         padding: 1.25rem;
         border: 1px solid var(--border);
         transition: transform 0.2s ease, border-color 0.2s ease;
+        position: relative;
+        overflow: hidden;
       }
 
       .collection-card:hover {
         transform: translateY(-6px);
         border-color: rgba(32, 129, 226, 0.45);
+      }
+
+      .collection-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(160deg, rgba(30, 167, 255, 0.08), transparent 75%);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+      }
+
+      .collection-card:hover::after {
+        opacity: 1;
       }
 
       .collection-card img {
@@ -294,6 +343,8 @@
         border: 1px solid var(--border);
         border-radius: 18px;
         padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
       }
 
       .stat-card h4 {
@@ -304,6 +355,99 @@
       .stat-card span {
         color: var(--text-muted);
         font-size: 0.95rem;
+      }
+
+      .stat-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(140deg, rgba(32, 129, 226, 0.08), transparent 70%);
+        pointer-events: none;
+      }
+
+      .narrative {
+        display: grid;
+        gap: 2.5rem;
+      }
+
+      .narrative-highlight {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2.5rem;
+        align-items: center;
+        padding: 2.5rem;
+        border-radius: 28px;
+        border: 1px solid rgba(32, 129, 226, 0.25);
+        background: linear-gradient(160deg, rgba(12, 22, 38, 0.9), rgba(12, 22, 38, 0.55));
+        position: relative;
+        overflow: hidden;
+      }
+
+      .narrative-highlight::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(30, 167, 255, 0.22), transparent 60%);
+        pointer-events: none;
+      }
+
+      .narrative-highlight img {
+        width: 100%;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .narrative-highlight h3 {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+      }
+
+      .narrative-highlight p {
+        color: var(--text-muted);
+        line-height: 1.75;
+        margin-bottom: 1.5rem;
+      }
+
+      .story-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.75rem;
+      }
+
+      .story-card {
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        padding: 1.5rem;
+        background: rgba(12, 22, 38, 0.75);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .story-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(150deg, rgba(26, 188, 156, 0.08), transparent 70%);
+        pointer-events: none;
+      }
+
+      .story-card h4 {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .story-card p {
+        color: var(--text-muted);
+        line-height: 1.65;
+        margin-bottom: 1rem;
+      }
+
+      .story-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        color: var(--text-muted);
+        font-size: 0.85rem;
       }
 
       footer {
@@ -344,6 +488,36 @@
         color: var(--text);
       }
 
+      .payments {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .payment-card {
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: rgba(12, 22, 38, 0.7);
+        padding: 1.5rem;
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .payment-card span {
+        font-size: 2.25rem;
+      }
+
+      .payment-card strong {
+        font-size: 1.05rem;
+      }
+
+      .payment-card p {
+        color: var(--text-muted);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
       @media (max-width: 768px) {
         nav {
           display: none;
@@ -363,6 +537,10 @@
 
         .section {
           padding: 0 1.5rem 3rem;
+        }
+
+        .narrative-highlight {
+          padding: 2rem;
         }
       }
     </style>
@@ -394,12 +572,13 @@
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <span class="badge">Marketplace NFT líder</span>
-          <h1>Descubra, colete e venda NFTs extraordinários</h1>
+          <span class="badge">Marketplace NFT líder no Brasil</span>
+          <h1>Descubra narrativas colecionáveis da cultura brasileira</h1>
           <p>
-            BlueSea é a plataforma pioneira para negociar NFTs exclusivos. Explore
-            artes digitais, coleções colecionáveis e experiências imersivas criadas
-            pelos melhores artistas Web3 do mundo.
+            BlueSea Brasil conecta artistas independentes, grandes clubes e marcas icônicas
+            em coleções que celebram nossa diversidade. Explore histórias digitais com
+            royalties automáticos, benefícios presenciais e experiências imersivas que só o
+            maior marketplace Web3 da América Latina entrega.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#">Explorar coleções</a>
@@ -408,15 +587,15 @@
           <div class="stats">
             <div class="stat-card">
               <h4>2,1M+</h4>
-              <span>Itens listados</span>
+              <span>Itens listados globalmente</span>
             </div>
             <div class="stat-card">
               <h4>320K+</h4>
-              <span>Artistas ativos</span>
+              <span>Artistas ativos na rede</span>
             </div>
             <div class="stat-card">
-              <h4>US$ 4,8B</h4>
-              <span>Volume negociado</span>
+              <h4>R$ 600M</h4>
+              <span>Volume negociado em reais</span>
             </div>
           </div>
         </div>
@@ -474,6 +653,86 @@
         </div>
       </section>
 
+      <section class="section narrative">
+        <div class="section-header">
+          <h2>Densidade narrativa em cada coleção</h2>
+          <a href="#">Conheça nossa curadoria</a>
+        </div>
+        <div class="narrative-highlight">
+          <div>
+            <span class="badge">Case nacional</span>
+            <h3>Baía do Futuro — A coleção que transformou fãs em sócios</h3>
+            <p>
+              Em parceria com o clube de futebol Bahia, lançamos uma série limitada que
+              desbloqueia experiências presenciais na Arena Fonte Nova. Os holders recebem
+              ingressos premium, visitas aos centros de treinamento e participação em votações
+              exclusivas dentro do clube.
+            </p>
+            <div class="story-meta">
+              <span>⚡ 12h de sold out</span>
+              <span>🎟️ 18K benefícios resgatados</span>
+              <span>🤝 Royalties distribuídos via smart contract</span>
+            </div>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=720&q=80"
+            alt="Torcida vibrando em estádio"
+          />
+        </div>
+        <div class="story-grid">
+          <article class="story-card">
+            <h4>Roteiros imersivos</h4>
+            <p>
+              Conectamos roteiristas e ilustradores para criar universos completos. Cada drop
+              inclui trilhas sonoras originais, capítulos extras e acesso antecipado às novas
+              temporadas do storytelling transmídia.
+            </p>
+            <div class="story-meta">
+              <span>#Música</span>
+              <span>#HQs</span>
+              <span>#Web3TV</span>
+            </div>
+          </article>
+          <article class="story-card">
+            <h4>Economia criativa local</h4>
+            <p>
+              Apoiamos coletivos indígenas, quilombolas e periféricos com mentorias e bolsas
+              em reais. Cada venda direciona 10% do valor para projetos socioambientais
+              homologados em blockchain pública.
+            </p>
+            <div class="story-meta">
+              <span>#ImpactoSocial</span>
+              <span>#ArteAncestral</span>
+            </div>
+          </article>
+          <article class="story-card">
+            <h4>Benefícios físicos + digitais</h4>
+            <p>
+              Lançamos experiências phygital com etiquetas NFC autenticadas. Garanta itens de
+              moda streetwear, obras em metacrilato e acesso VIP a festivais como Rock in Rio e
+              The Town.
+            </p>
+            <div class="story-meta">
+              <span>#Phygital</span>
+              <span>#Moda</span>
+              <span>#Eventos</span>
+            </div>
+          </article>
+          <article class="story-card">
+            <h4>Comunidade com governança</h4>
+            <p>
+              Participe de DAOs temáticas com votação on-chain. Decida pautas de curadoria,
+              selecione novos artistas residentes e direcione fundos para residências criativas
+              em Recife, Manaus e Porto Alegre.
+            </p>
+            <div class="story-meta">
+              <span>#DAOs</span>
+              <span>#ResidênciasCriativas</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section class="section">
         <div class="section-header">
           <h2>Drops em alta</h2>
@@ -512,6 +771,39 @@
             <h3>Dream Capsules</h3>
             <p class="floor">Drop em 2 dias · 2K itens</p>
           </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Pagamentos e onboarding local</h2>
+          <a href="#">Ver mais opções</a>
+        </div>
+        <div class="payments">
+          <div class="payment-card">
+            <span>💳</span>
+            <strong>Cartão nacional em até 12x</strong>
+            <p>
+              Parcelamento com juros reduzidos, conversão automática para ETH e stablecoins e
+              suporte a bandeiras Elo, Hipercard e VR Benefícios.
+            </p>
+          </div>
+          <div class="payment-card">
+            <span>⚡</span>
+            <strong>Pix instantâneo</strong>
+            <p>
+              Conclua compras em segundos com conciliação automática. Sem taxas adicionais para
+              colecionadores e com cashbacks patrocinados pelos parceiros da comunidade BlueSea.
+            </p>
+          </div>
+          <div class="payment-card">
+            <span>🪙</span>
+            <strong>On-ramp com Real Digital</strong>
+            <p>
+              Converta BRL para cripto diretamente na plataforma utilizando parceiros regulados
+              pelo Banco Central e receba NFTs em wallets custodiais ou self-custody.
+            </p>
+          </div>
         </div>
       </section>
     </main>
