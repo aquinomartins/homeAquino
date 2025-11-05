@@ -750,14 +750,13 @@
       }
 
       .stats {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 1.5rem;
-        flex-wrap: wrap;
         margin-top: 2.5rem;
       }
 
       .stat-card {
-        flex: 1 1 200px;
         background: rgba(15, 16, 24, 0.82);
         border: 1px solid rgba(255, 255, 255, 0.05);
         border-radius: 16px;
@@ -766,6 +765,7 @@
         overflow: hidden;
         display: grid;
         gap: 0.5rem;
+        min-width: 0;
       }
 
       .stat-card h4 {
@@ -1160,11 +1160,8 @@
         }
 
         .stats {
-          gap: 1rem;
-        }
-
-        .stat-card {
-          flex: 1 1 calc(50% - 1rem);
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1.25rem;
         }
 
         .section-header {
@@ -1212,11 +1209,12 @@
         }
 
         .stats {
-          flex-direction: column;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 1.25rem;
         }
 
         .stat-card {
-          flex: 1 1 100%;
+          width: 100%;
         }
 
         .hero-highlights {
